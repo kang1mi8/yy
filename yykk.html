@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>只要能吃苦，就有吃不尽的苦</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 40px;
+    background-color: #f7f7f7;
+    color: #333;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  h2 {
+    text-align: center;
+    color: #5cb85c;
+    margin-bottom: 20px;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  .input-group {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  label {
+    margin-right: 10px;
+    color: #333;
+    white-space: nowrap;
+  }
+  input[type="number"], input[type="text"], input[type="date"] {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  input[type="number"] {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  input[type="text"] {
+    width: 80px;
+    background-color: #e7f4e4;
+    text-align: right;
+  }
+  .output-unit {
+    padding-left: 8px;
+    white-space: nowrap;
+  }
+  button {
+    width: 100%;
+    padding: 15px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #4cae4c;
+  }
+  .date-calculator {
+    margin-top: 20px;
+  }
+  .date-calculator label {
+    margin-right: 10px;
+  }
+  .date-calculator input[type="date"] {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  .date-calculator input[type="number"] {
+    width: 100px;
+    margin-right: 10px;
+  }
+  .date-calculator button {
+    margin-top: 10px;
+  }
+  .date-calculator .output {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 35px;
+    color: #5cb85c;
+  }
+  .image-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .profile-avatar {
+  width: 50px; /* 可以根据需要调整大小 */
+  height: 50px; /* 宽度和高度相等以确保是圆形 */
+  border-radius: 50%; /* 圆角为50%以确保是圆形 */
+  object-fit: cover; /* 确保图片内容适应圆形 */
+  margin-left: 10px; /* 与标题保持一定的间距 */
+  display: inline-block;
+}
+.title1{
+  display: inline-block;
+}
+</style>
+<script>
+function convertUnits() {
+    // 厘米转英寸，1厘米 = 0.393701英寸
+    var centimeters1 = document.getElementById("centimeters1").value;
+    var centimeters2 = document.getElementById("centimeters2").value;
+    var centimeters3 = document.getElementById("centimeters3").value;
+    
+    var inches1 = centimeters1 * 0.393701;
+    var inches2 = centimeters2 * 0.393701;
+    var inches3 = centimeters3 * 0.393701;
+    
+    document.getElementById("inches1").value = inches1.toFixed(0);
+    document.getElementById("inches2").value = inches2.toFixed(0);
+    document.getElementById("inches3").value = inches3.toFixed(0);
+    
+    // 千克转英镑，1千克 ≈ 2.20462英镑
+    var kilograms = document.getElementById("kilograms").value;
+    var pounds = kilograms * 2.20462;
+    
+    document.getElementById("pounds").value = pounds.toFixed(0);
+}
+
+function calculateDate() {
+    var startDate = document.getElementById("start-date").value;
+    var daysToAdd = document.getElementById("days-to-add").value;
+    var date = new Date(startDate);
+    date.setDate(date.getDate() + parseInt(daysToAdd));
+    var resultDate = date.toISOString().split('T')[0];
+    var dayOfWeek = date.toLocaleString('zh-CN', { weekday: 'long' });
+    document.getElementById("result-date").innerHTML = resultDate + ' ' + dayOfWeek;
+}
+</script>
+</head>
+<body>
+
+<div class="container">
+  <div class="image-box">
+    <img src="https://pic.imgdb.cn/item/6768c89cd0e0a243d4e82b50.jpg" alt="头像" class="profile-avatar" />
+    <h2 class="title1">小卢单位换算器</h2>
+  </div>
+
+  <div class="row">
+    <div class="input-group"> 
+      <label for="centimeters1">长(cm) : &nbsp;</label>
+      <input type="number" id="centimeters1">
+    </div>
+    <div class="input-group">
+      <input type="text" id="inches1" readonly>
+      <div class="output-unit">英寸(in)</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-group">
+      <label for="centimeters2">宽(cm) : &nbsp;</label>
+      <input type="number" id="centimeters2">
+    </div>
+    <div class="input-group">
+      <input type="text" id="inches2" readonly>
+      <div class="output-unit">英寸(in)</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-group">
+      <label for="centimeters3">高(cm) :  &nbsp;</label>
+      <input type="number" id="centimeters3">
+    </div>
+    <div class="input-group">
+      <input type="text" id="inches3" readonly>
+      <div class="output-unit">英寸(in)</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-group">
+      <label for="kilograms">千克(kg):</label>
+      <input type="number" id="kilograms">
+    </div>
+    <div class="input-group">
+      <input type="text" id="pounds" readonly>
+      <div class="output-unit">英镑(Ib)</div>
+    </div>
+  </div>
+
+  <button onclick="convertUnits()">一键换算</button>
+</div>
+
+<div class="container date-calculator">
+  <h2>小卢日期天数计算器</h2>
+  <div class="row">
+    <div class="input-group">
+      <label for="start-date">开始日期:</label>
+      <input type="date" id="start-date">
+    </div>
+    <div class="input-group">
+      <label for="days-to-add">添加天数:</label>
+      <input type="number" id="days-to-add">
+    </div>
+  </div>
+  <div>结果是：</div>
+  <div class="output" id="result-date"></div>
+  <button onclick="calculateDate()">计算日期</button>
+  
+</div>
+
+</body>
+</html>
